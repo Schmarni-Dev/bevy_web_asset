@@ -135,6 +135,7 @@ async fn get<'a>(path: PathBuf) -> Result<Box<Reader<'a>>, AssetReaderError> {
                 .map_err(|_| AssetReaderError::NotFound(path.to_path_buf()))?,
         )) as _),
         StatusCode::NotFound => Err(AssetReaderError::NotFound(path)),
+        StatusCode::Forbidden => Err(AssetReaderError::NotFound(path)),
         code => Err(AssetReaderError::Io(
             io::Error::new(
                 io::ErrorKind::Other,
