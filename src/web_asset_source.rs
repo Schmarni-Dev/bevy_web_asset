@@ -70,6 +70,7 @@ async fn get<'a>(path: PathBuf) -> Result<Box<Reader<'a>>, AssetReaderError> {
             Ok(reader)
         }
         404 => Err(AssetReaderError::NotFound(path)),
+        403 => Err(AssetReaderError::NotFound(path)),
         status => Err(AssetReaderError::Io(
             std::io::Error::new(
                 std::io::ErrorKind::Other,
